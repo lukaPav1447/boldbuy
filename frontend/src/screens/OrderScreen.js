@@ -196,7 +196,7 @@ const OrderScreen = ({ match, history }) => {
                   <Col>${order.totalPrice}</Col>
                 </Row>
               </ListGroup.Item>
-              {!order.isPaid && (
+              {!order.isPaid && !userInfo.isAdmin && (
                 <ListGroup.Item>
                   {loadingPay && <Loader />}
                   {!sdkReady ? (
@@ -212,13 +212,14 @@ const OrderScreen = ({ match, history }) => {
               {loadingDeliver && <Loader />}
               {userInfo &&
                 userInfo.isAdmin &&
-                order.isPaid &&
+                // order.isPaid &&
                 !order.isDelivered && (
                   <ListGroup.Item className='d-grid gap-2'>
                     <Button
                       type='button'
                       className='btn btn-block'
                       onClick={deliverHandler}
+                      disabled={!order.isPaid}
                     >
                       Mark As Delivered
                     </Button>
